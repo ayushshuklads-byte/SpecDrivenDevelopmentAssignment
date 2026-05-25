@@ -1,3 +1,7 @@
+## Workflow
+
+This branch demonstrates a specification-driven development workflow using proposal, specification, and task decomposition before implementation.
+
 # Reports API
 
 A small FastAPI service that exposes a paginated `/reports` endpoint backed by a deterministic in-memory dataset.
