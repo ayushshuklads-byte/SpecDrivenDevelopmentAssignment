@@ -1,3 +1,8 @@
+## Workflow
+
+This branch demonstrates rapid AI-assisted iterative development using a vibe coding workflow.
+
+
 # Reports API
 
 A small FastAPI service that exposes a paginated `/reports` endpoint backed by a deterministic in-memory dataset.
