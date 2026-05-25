@@ -22,6 +22,7 @@ def list_reports(
     status: ReportStatus | None = Query(None, description="Filter by status"),
     date_from: datetime | None = Query(None, description="Lower bound on created_at (inclusive)"),
     date_to: datetime | None = Query(None, description="Upper bound on created_at (inclusive)"),
+    search: str | None = Query(None, description="Search report titles"),
     sort: str = Query("created_at", description="Sort field"),
     descending: bool = Query(True, description="Sort descending"),
     offset: int = Query(0, ge=0),
@@ -38,6 +39,7 @@ def list_reports(
             status=status,
             date_from=date_from,
             date_to=date_to,
+            search=search,
             sort=sort,
             descending=descending,
         )
@@ -45,6 +47,7 @@ def list_reports(
         raise HTTPException(status_code=400, detail=str(e)) from e
 
     page = rows[offset : offset + limit]
+
     return ReportListResponse(
         items=[ReportPublic.from_internal(r) for r in page],
         total=len(rows),

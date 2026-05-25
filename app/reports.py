@@ -21,6 +21,7 @@ def query(
     status: ReportStatus | None = None,
     date_from: datetime | None = None,
     date_to: datetime | None = None,
+    search: str | None = None,
     sort: str = "created_at",
     descending: bool = True,
 ) -> list[Report]:
@@ -33,9 +34,17 @@ def query(
 
     if status is not None:
         rows = (r for r in rows if r.status == status)
+
     if date_from is not None:
         rows = (r for r in rows if r.created_at >= date_from)
+
     if date_to is not None:
         rows = (r for r in rows if r.created_at <= date_to)
+
+    if search:
+        rows = (
+            r for r in rows
+            if search.lower() in r.title.lower()
+        )
 
     return sorted(rows, key=lambda r: getattr(r, sort), reverse=descending)
